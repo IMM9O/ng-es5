@@ -19,7 +19,7 @@ var gulpif = require('gulp-if');
 var eslint = require('gulp-eslint');
 
 var paths = {
-  scripts: 'src/app/**/*.js',                              // javaScripts files
+  scripts: ['src/app/**/*.js', '!src/app/**/*.spec.js'],   // javaScripts files
   templates: 'src/app/**/*.html',                          // html files
   main: 'src/index.html',                                  // main files 
   styles: 'src/styles.scss',                               // styles
@@ -63,12 +63,14 @@ gulp.task('build-vendors', ['usemin', 'copy-fonts']);
 /**Group task for custome files images , css , sass , html and javascript */
 gulp.task('custom-styles', function () {
   return gulp.src(paths.styles)
+    .pipe(gulpif(argv.sourcemaps, sourcemaps.init()))
     .pipe(sass().on('error', sass.logError))
     .pipe(autoprefixer({
       browsers: ['last 2 versions'],
       cascade: false
     }))
     .pipe(minifyCss({ keepSpecialComments: 0 }))
+    .pipe(gulpif(argv.sourcemaps, sourcemaps.write('.')))
     .pipe(gulp.dest(dest.css));
 });
 

@@ -19,7 +19,7 @@ var gulpif = require('gulp-if');
 var eslint = require('gulp-eslint');
 
 var paths = {
-  scripts: ['src/app/**/*.js', '!src/app/**/*.spec.js'],   // javaScripts files
+  scripts: ['src/app/**/*.js', '!src/app/**/*.spec.js', '!./node_modules/**'],   // javaScripts files
   templates: 'src/app/**/*.html',                          // html files
   main: 'src/index.html',                                  // main files 
   styles: 'src/styles.scss',                               // styles
@@ -109,7 +109,7 @@ gulp.task('custom-templates', function () {
 
 
 gulp.task('lint', function () {
-  return gulp.src(['./src/app/**/*.js', '!./node_modules/**'])
+  return gulp.src(paths.scripts)
     .pipe(eslint('.eslintrc'))
     .pipe(eslint.format());
 });

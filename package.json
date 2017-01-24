@@ -2,11 +2,8 @@
   "name": "angular-es5",
   "version": "1.0.0",
   "scripts": {
-    "postinstall": "npm start",
-    "prestart": "gulp --sourcemaps",
-    "start": "npm start",
-    "prebuild": "rimraf dist/",
-    "build": "gulp build",
+    "start": "gulp --sourcemaps",
+    "build": "rimraf dist/ && gulp build",
     "test": "gulp test",
     "lint": "gulp lint"
   },

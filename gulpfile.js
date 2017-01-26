@@ -69,22 +69,8 @@ gulp.task('custom-styles', function () {
       browsers: ['last 2 versions'],
       cascade: false
     }))
-    .pipe(minifyCss({ keepSpecialComments: 0 }))
+    .pipe(gulpif(argv.prod, minifyCss({ keepSpecialComments: 0 })))
     .pipe(gulpif(argv.sourcemaps, sourcemaps.write('.')))
-    .pipe(gulp.dest(dest.css));
-});
-
-
-gulp.task('custom-css', function () {
-  return gulp.src(paths.css)
-    .pipe(autoprefixer({
-      browsers: ['last 2 versions'],
-      cascade: false
-    }))
-    .pipe(minifyCss({ keepSpecialComments: 0 }))
-    .pipe(rename({
-      basename: "styles"
-    }))
     .pipe(gulp.dest(dest.css));
 });
 
@@ -102,7 +88,7 @@ gulp.task('custom-templates', function () {
     .pipe(rename(function (path) {
       path.dirname = '';
     }))
-    .pipe(minifyHTML(opts))
+    .pipe(gulpif(argv.prod, minifyHTML(opts)))
     .pipe(gulp.dest(dest.templates));
 
 });
@@ -120,7 +106,7 @@ gulp.task('custom-js', function () {
   return gulp.src(paths.scripts)
     .pipe(gulpif(argv.sourcemaps, sourcemaps.init()))
     .pipe(concat('app.min.js'))
-    .pipe(minifyJs())
+    .pipe(gulpif(argv.prod, minifyJs()))
     .pipe(gulpif(argv.sourcemaps, sourcemaps.write('.')))
     .pipe(gulp.dest(dest.scripts));
 

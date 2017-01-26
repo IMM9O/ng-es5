@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "gulp --sourcemaps",
-    "build": "rimraf dist/ && gulp build",
+    "build": "rimraf dist/ && gulp build --prod",
     "test": "gulp test",
     "lint": "gulp lint"
   },

@@ -24,15 +24,15 @@ var paths = {
   main: 'src/index.html',                                  // main files 
   styles: 'src/styles.scss',                               // styles
   images: 'src/assets/img/**/*.*',                         // images
-  fonts: 'node_modules/**/*.{ttf,woff,woff2,eof,svg}',     // fonts
+  fonts: 'node_modules/{}/**/*.{ttf,woff,woff2,eof,svg}',  // fonts inside { } put your libs to included it only
 };
 
 
 var dest = {
   dest: 'dist',
   templates: 'dist/templates',                           // html files
-  css: 'dist',                                           // css files
-  scripts: 'dist',                                       // javaScripts files
+  css: 'dist/css',                                           // css files
+  scripts: 'dist/js',                                       // javaScripts files
   images: 'dist/assets/img',                             // images
   fonts: 'dist',                                         // fonts
 };
@@ -42,7 +42,7 @@ var dest = {
 gulp.task('usemin', function () {
   return gulp.src(paths.main)
     .pipe(usemin({
-      js: ['concat'],
+      js: [minifyJs(), 'concat'],
       css: [minifyCss({ keepSpecialComments: 0 }), 'concat'],
     }))
     .pipe(gulp.dest(dest.dest));
